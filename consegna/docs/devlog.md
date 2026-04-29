@@ -36,8 +36,8 @@ Linee guida, non obbligatorie in modo rigido. Ogni entry dovrebbe toccare almeno
 ## Entry
 
 ### Settimana 1 (22-28 aprile 2026)
+Abbiamo definito la struttura dati Trial e implementato la logica di gioco in rules.py, che valida numeri pari o vocali in base alla posizione "TOP" o "BOTTOM". Abbiamo inoltre scritto il generatore casuale degli stimoli, il sistema di calcolo del punteggio e una prima funzione per il rendering grafico delle carte su Pygame. Fortunatamente non abbiamo perso tempo, abbiamo lavorato bene. Abbiamo imparato a usare le dataclasses per gestire i dati del gioco in modo pulito. Tecnicamente, abbiamo approfondito l'integrazione tra la logica pura di Python e il ciclo di rendering di Pygame per separare i dati dalla UI. Abbiamo scartato l'idea di input complessi, optando per una risposta booleana (True/False) basata sulle regole prefissate. Pianifichiamo di implementare la gestione degli eventi della tastiera nel loop principale di main.py. Vogliamo inoltre aggiungere un timer per limitare il tempo di risposta e dei feedback visivi immediati per indicare se la risposta data dall'utente è corretta o errata. Per quanto riguarda la suddivisone del lavoro non ci siamo oragnizzate effettivamente, ma stiamo cercando di fare tutto insieme cos' da capire bene cosa facciamo. Dobbiamo solo organizzarci meglio ma per il resto siamo soddisfatte.
 
-_Scrivete qui._
 
 ### Settimana 2 (29 aprile - 5 maggio 2026)
 

@@ -4,7 +4,7 @@
 
 ## Chi siamo
 
-- Nome Cognome 1 — email / handle GitHub
+- Alice Orlando — alicenontelodico@gmail.com / Alice-Orlando
 - Nome Cognome 2 — email / handle GitHub
 - (eventuale terzo membro se siete un trio)
 
@@ -12,7 +12,7 @@ Classe 4A Informatica — a.s. 2025-26.
 
 ## Cos'è Brain Shift
 
-Scrivete 3-5 righe che spiegano il gioco a qualcuno che non l'ha mai visto. Non copia-incollate dalla specifica, riscrivete a parole vostre. Se non riuscite a riassumerlo, non l'avete capito.
+Brain Shift è un gioco che mette alla prova la capacità di cambiare rapidamente attenzione e criterio di risposta. In ogni turno compare una carta con una lettera e un numero, posizionata in alto oppure in basso sullo schermo. Se la carta è in alto bisogna controllare se il numero è pari, mentre se è in basso bisogna verificare se la lettera è una vocale, rispondendo sempre solo SÌ o NO.
 
 ## Come giocare
 
