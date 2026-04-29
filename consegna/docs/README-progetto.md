@@ -5,7 +5,7 @@
 ## Chi siamo
 
 - Alice Orlando — alicenontelodico@gmail.com / Alice-Orlando
-- Nome Cognome 2 — email / handle GitHub
+- Maggy Bersaglio — bersagliomaggy@gmail.com / maggybersaglio
 - (eventuale terzo membro se siete un trio)
 
 Classe 4A Informatica — a.s. 2025-26.

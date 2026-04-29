@@ -14,11 +14,10 @@ L'IA è consentita come assistente (spiegazioni, suggerimenti, debug, codice di 
 
 Elencate gli strumenti IA che il gruppo ha effettivamente usato durante il progetto:
 
-- [ ] ChatGPT (modello: …)
-- [ ] Claude (modello: …)
+- [ ] ChatGPT 
+- [ ] Claude 
 - [ ] GitHub Copilot
-- [ ] Gemini (modello: …)
-- [ ] altro: …
+- [ ] Gemini 
 
 Se non avete usato IA, dichiaratelo esplicitamente.
 
@@ -30,11 +29,18 @@ Per **ogni parte del codice** in cui avete usato l'IA, una entry strutturata. Co
 
 ### Template
 
-**Dove**: `scoring.py`, funzione `apply_correct_answer` (righe 34-52)
+**Dove**: `generator.py`, funzione `generate_trial` (righe 8-17)
 
-**Cosa abbiamo chiesto**: in sintesi, la richiesta fatta all'IA. Anche solo una frase tipo «come gestire la saturazione del moltiplicatore a 10?».
+**Cosa abbiamo chiesto**: copilot ci ha aiutate a completare la funzione poichè inizialmente non funzionava, ci ha corretto l'errore.
 
-**Cosa ci ha suggerito**: sintesi della risposta dell'IA, o snippet originale.
+**Cosa ci ha suggerito**: di fare un controllo per le lettere vocali e consonanti
+
+
+**Dove**: `rules.py`, funzione `compute_expected_answer` (righe 8-17)
+
+**Cosa abbiamo chiesto**: abbiamo chiesto a chat di corregerci la funzione
+
+**Cosa ci ha suggerito**: inizialmente avevamo messo position == letter ci ha detto di mettere  top e bottom
 
 **Cosa abbiamo fatto**:
 - [ ] accettato integralmente
@@ -60,9 +66,10 @@ Elencate esplicitamente le parti che avete scritto **senza** assistenza IA. Serv
 
 Esempi:
 - tutti i test pytest
-- `docs/devlog.md` e `docs/scelte.md`
+- per adesso non abbiamo chiesto nulla nei file models, scoring, ui
+- tutti i file di docs
 - la logica del generatore
-- …
+-
 
 ---
 
