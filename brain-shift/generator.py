@@ -1,16 +1,17 @@
-TOP = "letter"
-BOTTOM = "number"
+from models import Trial
+from rules import compute_expected_answer
 
-@dataclass
-class Trial:
-    position: str
-    letter: str
-    number: int
-    expected_answer: bool
+VOCALI = "AEIOU"
+CONSONANTI = "BCDFGHJKLMNPQRSTVWXYZ"
+
 
 def generate_trial(rng) -> Trial:
-    position = rng.choice([TOP, BOTTOM])
-    letter = rng.choice(string.ascii_uppercase)
+    position = rng.choice(["TOP", "BOTTOM"])
+    index = rng.randint(0, 1)
+    if index == 0:
+        letter = rng.choice(VOCALI)
+    else:
+        letter = rng.choice(CONSONANTI)
     number = rng.randint(1, 9)
     expected = compute_expected_answer(position, letter, number)
     return Trial(position, letter, number, expected)

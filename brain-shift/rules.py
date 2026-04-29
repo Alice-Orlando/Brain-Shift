@@ -27,9 +27,9 @@ def compute_expected_answer(position: str, letter: str, number: int) -> bool:
     - 'number' → verifica se il numero è pari
     - 'letter' → verifica se la lettera è una vocale
     """
-    if position == "number":
+    if position == "TOP":
         return is_even(number)
-    elif position == "letter":
+    elif position == "BOTTOM":
         return is_vowel(letter)
     else:
         # Caso non valido
