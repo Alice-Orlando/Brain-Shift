@@ -1,57 +1,120 @@
-import pygame
-import generator
+import pygame 
+import time 
 import scoring
-import config
-import random
+import generator  
+import ui
 
-pygame.init() # Inizializza Pygame 
-screen = pygame.display.set_mode((800, 600)) # Crea una finestra di gioco
-clock = pygame.time.Clock() # Crea un orologio per gestire il frame rate
+# STATI DEL GIOCO
+PLAYING = "PLAYING"
+RESULTS = "RESULTS"
+state = PLAYING
+screen = pygame.display.set_mode((800, 600))
+pygame.display.set_caption("Brain Shift")
+clock = pygame.time.Clock()
 
-score = 0
-correct_count = 0
-wrong_count = 0
+
+TOTAL_TIME = 60
+start_time = None
 
 running = True
-while running: # Loop principale del gioco
-    for event in pygame.event.get(): # Gestisce gli eventi
+while running:  # Loop principale del gioco
+    for event in pygame.event.get():  # Gestisce gli eventi
         if event.type == pygame.QUIT:
             running = False
 
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                user_answer = True
-                is_correct = (user_answer == trial.expected_answer)
+        # EVENTI SOLO DURANTE IL GIOCO
+        if state == PLAYING:
 
-                # Aggiorna il punteggio usando la funzione definita
-                score = scoring.apply_answer(score, is_correct)
+            if event.type == pygame.KEYDOWN:
 
-                # Incrementa il contatore delle risposte corrette o sbagliate
-                if is_correct:
-                    correct_count += 1  # risposta giusta
-                else:
-                    wrong_count += 1    # risposta sbagliata
+                if event.key == pygame.K_RIGHT:
+                    user_answer = True
+                    is_correct = (user_answer == trial.expected_answer)
 
-                # Genera un nuovo trial dopo la risposta
-                trial = generator.generate_trial()
+                    # Avvia timer al primo trial
+                    if start_time is None:
+                        start_time = time.time()
 
-            elif event.key == pygame.K_LEFT:
-                user_answer = False
-                is_correct = (user_answer == trial.expected_answer)
+                    # Aggiorna punteggio
+                    score = scoring.apply_answer(score, is_correct)
 
-                # Aggiorna il punteggio usando la funzione definita
-                score = scoring.apply_answer(score, is_correct)
+                    # Conta corrette/sbagliate
+                    if is_correct:
+                        correct_count += 1
+                    else:
+                        wrong_count += 1
 
-                # Incrementa il contatore delle risposte corrette o sbagliate
-                if is_correct:
-                    correct_count += 1  # risposta giusta
-                else:
-                    wrong_count += 1    # risposta sbagliata
+                    # Nuovo trial
+                    trial = generator.generate_trial()
 
-                # Genera un nuovo trial dopo la risposta
-                trial = generator.generate_trial()
+                elif event.key == pygame.K_LEFT:
+                    user_answer = False
+                    is_correct = (user_answer == trial.expected_answer)
 
-    screen.fill((255, 255, 255)) # Riempie lo schermo di bianco
-    pygame.display.flip() # Aggiorna lo schermo
-    clock.tick(60) # Limita il frame rate a 60 FPS
+                    # Avvia timer al primo trial
+                    if start_time is None:
+                        start_time = time.time()
+
+                    # Aggiorna punteggio
+                    score = scoring.apply_answer(score, is_correct)
+
+                    # Conta corrette/sbagliate
+                    if is_correct:
+                        correct_count += 1
+                    else:
+                        wrong_count += 1
+
+                    # Nuovo trial
+                    trial = generator.generate_trial()
+
+        # EVENTI SOLO NELLA SCHERMATA RISULTATI
+        elif state == RESULTS:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r:
+
+                    # RESET COMPLETO
+                    score = 0
+                    correct_count = 0
+                    wrong_count = 0
+                    start_time = None
+
+                    trial = generator.generate_trial()
+                    state = PLAYING
+
+   
+    # DISEGNO SCHERMATA
+    screen.fill((255, 255, 255))
+
+    if state == PLAYING:
+
+        # TIMER
+        if start_time is not None:
+            elapsed = time.time() - start_time
+            remaining = max(0, int(TOTAL_TIME - elapsed))
+
+            if elapsed >= TOTAL_TIME:
+                state = RESULTS
+        else:
+            remaining = TOTAL_TIME
+
+        # QUI DISEGNI IL TUO TRIAL NORMALE
+        ui.draw_fixation(screen)
+        ui.draw_trial(screen, trial)
+
+        # TIMER IN ALTO
+        ui.draw_timer(screen, remaining)
+
+    elif state == RESULTS:
+
+        total_answers = correct_count + wrong_count
+
+        if total_answers > 0:
+            accuracy = round((correct_count / total_answers) * 100, 1)
+        else:
+            accuracy = 0
+
+        ui.draw_results_screen(screen, score, correct_count, wrong_count, accuracy)
+
+    pygame.display.flip()
+    clock.tick(60)
 
