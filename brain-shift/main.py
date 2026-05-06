@@ -1,4 +1,8 @@
 import pygame
+import generator
+import scoring
+import config
+import random
 
 pygame.init() # Inizializza Pygame 
 screen = pygame.display.set_mode((800, 600)) # Crea una finestra di gioco
@@ -20,7 +24,7 @@ while running: # Loop principale del gioco
                 is_correct = (user_answer == trial.expected_answer)
 
                 # Aggiorna il punteggio usando la funzione definita
-                score = apply_answer(score, is_correct)
+                score = scoring.apply_answer(score, is_correct)
 
                 # Incrementa il contatore delle risposte corrette o sbagliate
                 if is_correct:
@@ -29,14 +33,14 @@ while running: # Loop principale del gioco
                     wrong_count += 1    # risposta sbagliata
 
                 # Genera un nuovo trial dopo la risposta
-                trial = generate_trial()
+                trial = generator.generate_trial()
 
             elif event.key == pygame.K_LEFT:
                 user_answer = False
                 is_correct = (user_answer == trial.expected_answer)
 
                 # Aggiorna il punteggio usando la funzione definita
-                score = apply_answer(score, is_correct)
+                score = scoring.apply_answer(score, is_correct)
 
                 # Incrementa il contatore delle risposte corrette o sbagliate
                 if is_correct:
@@ -45,7 +49,7 @@ while running: # Loop principale del gioco
                     wrong_count += 1    # risposta sbagliata
 
                 # Genera un nuovo trial dopo la risposta
-                trial = generate_trial()
+                trial = generator.generate_trial()
 
     screen.fill((255, 255, 255)) # Riempie lo schermo di bianco
     pygame.display.flip() # Aggiorna lo schermo
