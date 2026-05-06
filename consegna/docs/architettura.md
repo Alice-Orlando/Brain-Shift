@@ -7,7 +7,7 @@
 Per ciascun modulo del vostro progetto, una-due righe:
 
 - `main.py` — Il main è il ciclo principale del gioco, gestiamo gli input dell'utente e il tempo di gioco.
-- `config.py` — …
+- `config.py` — Ha tutte le costanti
 - `models.py` — Trial Rappresenta un singolo turno di gioco: abbiamo usato una dataclass per tenere insieme input, risposta attesa e risultato, calcolando automaticamente expected_answer in __post_init__.
 - `rules.py` — Gestisce la logica di base del gioco: abbiamo separato le regole in funzioni semplici e riutilizzabili (is_even e is_vowel) per controllare numeri e lettere.
 - `scoring.py` — Aumenta o diminuisce il punteggio

@@ -42,6 +42,14 @@ Per **ogni parte del codice** in cui avete usato l'IA, una entry strutturata. Co
 
 **Cosa ci ha suggerito**: inizialmente avevamo messo position == letter ci ha detto di mettere  top e bottom
 
+
+**Dove**: `ui.py`, funzione 
+
+**Cosa abbiamo chiesto**: abbiamo chiesto a copilot di migliorare la grafica del gioco di riordinarla e ferla più comprensibile
+
+**Cosa ci ha suggerito**: inizialmente avevamo messo position == letter ci ha detto di mettere  top e bottom
+
+
 **Cosa abbiamo fatto**:
 - [ ] accettato integralmente
 - [ ] modificato adattandolo al nostro codice

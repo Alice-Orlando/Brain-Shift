@@ -41,7 +41,9 @@ Abbiamo definito la struttura dati Trial e implementato la logica di gioco in ru
 
 ### Settimana 2 (29 aprile - 5 maggio 2026)
 
-_Scrivete qui._
+In questa settimana siamo andate avanti con le fasi e siamo arrivate fino alla fase 9, abbiamo fatto principalmente correzzioni delle fasi precedenti.
+Non abbiamo perso tempo, abbiamo lavorato bene. Principalmente abbiamo imparato a usarre pygame anche grazie all'AI che ci ha spiegato come proseguire il progetto. Per la prossima settimana pianifichiamo di finire il progetto quindi di finire le fasi mancanti la 10 e la 11 e di integrare le ultime cose.
+Purtroppo la suddivisione è ancora da pianifcare meglio, dato che martedì Alice non c'era allora mi sono occupata io di fare l fase 7 mentre oggi (mercoledì) abbiamo lavorato insieme.
 
 ### Settimana 3 (6-12 maggio 2026)
 

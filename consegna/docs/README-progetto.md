@@ -16,25 +16,25 @@ Brain Shift è un gioco che mette alla prova la capacità di cambiare rapidament
 
 ## Come giocare
 
-Istruzioni minime ma complete per far partire il gioco da clone pulito:
+Istruzioni minime ma complete per far partire il gioco da clone pulito: 
 
 ```bash
-git clone <URL-del-vostro-repo>
-cd <nome-cartella>
+git clone https://github.com/Alice-Orlando/Brain-Shift.git
+cd brain-shift
 pip install -r requirements.txt
 python main.py
 ```
 
 Specificate:
 
-- versione Python richiesta (es. Python 3.11+)
-- versione pygame richiesta
-- altre dipendenze se ce ne sono
+- versione Python richiesta 3.14
+- versione pygame richiesta 2.6.1
 
 ## Controlli
 
-- ← freccia sinistra: …
-- → freccia destra: …
+- ← freccia sinistra: NO
+- → freccia destra: SI
+- r tasto r: per ricominciare il gioco
 - … (eventuale mouse, pausa, ecc.)
 
 ## Screenshot
@@ -48,11 +48,24 @@ Breve spiegazione di dove sta cosa:
 ```
 brain_shift/
 ├── main.py           ← entry point
+├── config.py         ← configurazione del gioco
+├── generator.py      ← generazione delle carte
+├── models.py         ← modelli di dati (carte, punteggi)
 ├── rules.py          ← logica regole
 ├── scoring.py        ← sistema scoring
-├── ...
+├── ui.py             ← interfaccia utente (pygame)
+├── REDAME.md         ← documentazione principale
+├── requirements.text ← dipendenze Python
+├── test/             ← cartella dei test
+│   ├── conftest.py   ← configurazione pytest
+│   ├── README.md     ← documentazione test
+│   ├── test_rules.py ← test per rules.py
+│   └── test_scoring_base.py ← test per scoring.py
 ├── docs/             ← documentazione
-└── tests/            ← test pytest
+└── consegna/         ← consegna progetto
+    ├── docs/         ← documentazione dettagliata
+    ├── slide/        ← presentazioni
+    └── tests/        ← test aggiuntivi
 ```
 
 ## Come lanciare i test
