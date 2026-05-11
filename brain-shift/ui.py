@@ -29,23 +29,40 @@ def draw_timer(surface, remaining_time, config):
     surface.blit(text, text_rect)
 
 
-def draw_instructions(surface, config, correct_count, hide_after=10):
-    """Mostra le due regole sullo schermo. Scompare dopo hide_after corrette."""
-    if correct_count >= hide_after:
-        return
+# File: ui.py
+
+def draw_instructions(surface, config, correct_count):
+    """Disegna le regole con opacità variabile (Fading progressivo)."""
+    
+    # 1. Calcolo del livello di opacità (Alpha)
+    if correct_count <= 3:
+        alpha = 255  # 100%
+    elif correct_count <= 7:
+        alpha = 178  # 70%
+    elif correct_count <= 11:
+        alpha = 102  # 40%
+    else:
+        return  # Non disegnare le istruzioni dopo 12 risposte corrette
 
     font = pygame.font.Font(None, 28)
-    color = (100, 100, 100)
+    # Colore base grigio (100, 100, 100)
+    base_color = (100, 100, 100)
+    
+    # 2. Rendering del testo
+    top_text = font.render("Il numero è PARI?", True, base_color)
+    bottom_text = font.render("La lettera è una VOCALE?", True, base_color)
+
+    # 3. Applicazione della trasparenza
+    # Dobbiamo impostare l'alpha sulla "superficie" del testo appena creata
+    top_text.set_alpha(alpha)
+    bottom_text.set_alpha(alpha)
+
+    # 4. Disegno a schermo
     width = config["screen_width"]
-
-    # Regola TOP: sotto la carta TOP
-    top_text = font.render("Il numero è PARI?", True, color)
     top_rect = top_text.get_rect(center=(width // 2, 205))
-    surface.blit(top_text, top_rect)
-
-    # Regola BOTTOM: sopra la carta BOTTOM
-    bottom_text = font.render("La lettera è una VOCALE?", True, color)
     bottom_rect = bottom_text.get_rect(center=(width // 2, 295))
+
+    surface.blit(top_text, top_rect)
     surface.blit(bottom_text, bottom_rect)
 
 
@@ -72,12 +89,27 @@ def draw_controls_hint(surface, config):
     surface.blit(si_text, si_text_rect)
 
 
-def draw_score(surface, score, config):
-    """Disegna il punteggio in alto a destra."""
-    font = pygame.font.Font(None, 36)
-    text = font.render(f"Score: {score}", True, (30, 30, 30))
-    text_rect = text.get_rect(topright=(config["screen_width"] - 20, 18))
+def draw_score(surface, score, multiplier, meter, config):
+    """Disegna punteggio, moltiplicatore e i quadratini del meter."""
+    font = pygame.font.Font(None, 34)
+    
+    # 1. Creiamo il testo
+    score_txt = f"Score: {score}  |  Mult: x{multiplier}"
+    # Usiamo il colore BLACK o un grigio scuro dal tuo config
+    text = font.render(score_txt, True, (40, 40, 40)) 
+    
+    # 2. Posizionamento dinamico a destra
+    text_rect = text.get_rect(topright=(config["screen_width"] - 20, 15))
     surface.blit(text, text_rect)
+    
+    # 3. Disegno dei 4 quadratini del meter sotto il testo
+    # Partiamo dalla stessa X del testo per allinearli
+    start_x = text_rect.left 
+    for i in range(4):
+        # Verde se attivo, Grigio chiaro se spento
+        color = (50, 180, 50) if i < meter else (210, 210, 210)
+        # Disegnamo il rettangolino
+        pygame.draw.rect(surface, color, (start_x + (i * 22), 45, 18, 8), border_radius=2)
 
 
 def draw_background(surface, config):

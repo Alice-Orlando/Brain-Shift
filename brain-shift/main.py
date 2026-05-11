@@ -24,10 +24,13 @@ RESULTS = "RESULTS"
 
 def reset_game():
     """Inizializza / resetta tutte le variabili di gioco."""
-    global state, score, correct_count, wrong_count, start_time
+    global state, score, correct_count, wrong_count, start_time, multiplier, meter 
     global trial, feedback_until, feedback_color
 
+
     state = PLAYING
+    multiplier = 1
+    meter = 0
     score = 0
     correct_count = 0
     wrong_count = 0
@@ -41,29 +44,36 @@ def reset_game():
 
 def handle_answer(user_answer_bool):
     """Gestisce la risposta del giocatore e aggiorna lo stato."""
-    global score, correct_count, wrong_count, trial, start_time
+    # 1. AGGIUNGI multiplier e meter ai global
+    global score, multiplier, meter, correct_count, wrong_count, trial, start_time
     global feedback_until, feedback_color
 
     # Avvia il timer al primo input
     if start_time is None:
         start_time = time.time()
 
+    # 2. CALCOLA se la risposta è corretta
     is_correct = (user_answer_bool == trial.expected_answer)
-    score = scoring.apply_answer(score, is_correct)
 
+    # 3. SOSTITUISCI la vecchia riga 'score = scoring.apply_answer(...)' con questa:
+    score, multiplier, meter = scoring.apply_answer_advanced(score, multiplier, meter, is_correct)
+
+    # 4. IL RESTO RIMANE UGUALE: gestisci contatori e feedback visivo
     if is_correct:
         correct_count += 1
         feedback_color = config.CARD_CORRECT
     else:
         wrong_count += 1
+        # PENALITÀ FADING: se sbaglia, abbassiamo il contatore delle corrette
+        # così le istruzioni tornano a vedersi (senza scendere sotto lo zero)
+        correct_count = max(0, correct_count - 2)
         feedback_color = config.CARD_WRONG
 
-    # Feedback visivo non bloccante: dura 150 ms
+    # Feedback visivo non bloccante
     feedback_until = time.time() + config.FEEDBACK_DURATION
 
-    # Genera subito il prossimo trial (compare dopo il feedback)
+    # Genera subito il prossimo trial
     trial = generator.generate_trial(rng)
-
 
 # ── Setup iniziale ────────────────────────────────────────────────────────────
 reset_game()
@@ -101,9 +111,11 @@ while running:
             elapsed = now - start_time
             remaining = max(0, int(config.TOTAL_TIME - elapsed))
             if elapsed >= config.TOTAL_TIME:
+                score = scoring.calculate_final_bonus(score, multiplier)
                 state = RESULTS
         else:
             remaining = config.TOTAL_TIME
+
 
     # ── Disegno ───────────────────────────────────────────────────────────────
     ui.draw_background(screen, cfg)
@@ -117,8 +129,8 @@ while running:
 
         ui.draw_card(screen, trial, cfg, color_override=card_color)
         ui.draw_timer(screen, remaining, cfg)
-        ui.draw_score(screen, score, cfg)
-        ui.draw_instructions(screen, cfg, correct_count, config.INSTRUCTIONS_HIDE_AFTER)
+        ui.draw_score(screen, score, multiplier, meter, cfg)
+        ui.draw_instructions(screen, cfg, correct_count)
         ui.draw_controls_hint(screen, cfg)
 
     elif state == RESULTS:
