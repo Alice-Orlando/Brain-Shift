@@ -92,33 +92,29 @@ while running:
             running = False
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_p:
-                if state == PLAYING and start_time is not None:
-                    state = PAUSED
-                    pause_start = time.time() # Inizia a contare il tempo di pausa
-                    
-        elif state == PAUSED:
-            state = PLAYING
-            # Calcola quanto è durata questa pausa e aggiungila al totale
-            total_paused_time += (time.time() - pause_start)
-
-        if event.type == pygame.KEYDOWN:
+            # Tasto universale per uscire
             if event.key == pygame.K_ESCAPE:
                 running = False
 
-        if state == INTRO:
-            if event.key == pygame.K_SPACE:
-                state = PLAYING
-                # Il timer partirà comunque al primo tasto freccia grazie alla logica esistente
+            # Gestione in base allo STATO
+            if state == INTRO:
+                if event.key == pygame.K_SPACE:
+                    state = PLAYING
 
-            # Input durante il gioco
-            if state == PLAYING:
-                if event.key == pygame.K_RIGHT:
+            elif state == PLAYING:
+                if event.key == pygame.K_p:
+                    state = PAUSED
+                    pause_start = time.time()
+                elif event.key == pygame.K_RIGHT:
                     handle_answer(True)
                 elif event.key == pygame.K_LEFT:
                     handle_answer(False)
 
-            # Input nella schermata risultati
+            elif state == PAUSED:
+                if event.key == pygame.K_p: # Solo 'P' toglie la pausa
+                    state = PLAYING
+                    total_paused_time += (time.time() - pause_start)
+
             elif state == RESULTS:
                 if event.key == pygame.K_r:
                     reset_game()
