@@ -155,3 +155,64 @@ def draw_results_screen(surface, score, correct_count, wrong_count, accuracy, co
     hint = hint_font.render("Premi R per rigiocare", True, (100, 100, 100))
     hint_rect = hint.get_rect(center=(width // 2, config["screen_height"] - 40))
     surface.blit(hint, hint_rect)
+
+def draw_intro_screen(surface, config):
+    """Disegna la schermata iniziale con titolo e istruzioni."""
+    # Usiamo il colore di sfondo chiaro definito nel tuo config
+    surface.fill((243, 250, 252)) 
+    
+    # Prepariamo i font per le diverse sezioni
+    title_font = pygame.font.Font(None, 80)
+    instr_font = pygame.font.Font(None, 32)
+    start_font = pygame.font.Font(None, 40)
+
+    width = config["screen_width"]
+
+    # --- DISEGNO DEL TITOLO ---
+    title = title_font.render("BRAIN SHIFT", True, (40, 40, 40))
+    surface.blit(title, title.get_rect(center=(width // 2, 120)))
+
+    # --- DISEGNO DELLE ISTRUZIONI ---
+    # Queste righe spiegano le regole definite in rules.py
+    instructions = [
+        "REGOLE DEL GIOCO:",
+        "- Se la carta appare in ALTO: il numero è PARI?",
+        "- Se la carta appare in BASSO: la lettera è una VOCALE?",
+        "",
+        "CONTROLLI:",
+        "Freccia DESTRA = SÌ  |  Freccia SINISTRA = NO",
+        "Più sei veloce e preciso, più alto sarà il moltiplicatore!"
+    ]
+
+    y = 220
+    for line in instructions:
+        # Usiamo il grigio scuro per le regole e un grigio più chiaro per i titoli delle sezioni
+        color = (100, 100, 100) if ":" in line else (30, 30, 30)
+        txt = instr_font.render(line, True, color)
+        surface.blit(txt, txt.get_rect(center=(width // 2, y)))
+        y += 35
+
+    # --- MESSAGGIO DI AVVIO ---
+    start_txt = start_font.render("Premi SPAZIO per iniziare", True, (50, 150, 80))
+    surface.blit(start_txt, start_txt.get_rect(center=(width // 2, 500)))
+
+def draw_pause_screen(surface, config):
+    """Disegna una sovrapposizione semitrasparente per la pausa."""
+    # Crea un rettangolo nero semitrasparente che copre tutto lo schermo
+    overlay = pygame.Surface((config["screen_width"], config["screen_height"]))
+    overlay.set_alpha(128) # Trasparenza al 50%
+    overlay.fill((0, 0, 0))
+    surface.blit(overlay, (0, 0))
+
+    font_large = pygame.font.Font(None, 100)
+    font_small = pygame.font.Font(None, 40)
+
+    # Scritta PAUSA
+    txt = font_large.render("PAUSA", True, (255, 255, 255))
+    rect = txt.get_rect(center=(config["screen_width"] // 2, config["screen_height"] // 2 - 20))
+    surface.blit(txt, rect)
+
+    # Istruzione per riprendere
+    sub_txt = font_small.render("Premi P per riprendere", True, (200, 200, 200))
+    sub_rect = sub_txt.get_rect(center=(config["screen_width"] // 2, config["screen_height"] // 2 + 50))
+    surface.blit(sub_txt, sub_rect)
