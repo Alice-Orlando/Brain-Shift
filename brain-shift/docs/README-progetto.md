@@ -27,7 +27,7 @@ python main.py
 
 Specificate:
 
-- versione Python richiesta 3.13
+- versione Python richiesta 3.11
 - versione pygame richiesta 2.6.1
 
 ## Controlli
@@ -37,10 +37,6 @@ Specificate:
 - tastp R: per ricominciare il gioco
 - tasto P: Mette il gioco in PAUSA.
 - tasto ESC: Esce dal gioco.
-
-## Screenshot
-
-Uno o due screenshot del gioco (anche solo immagini PNG nella cartella `docs/img/`). Aiutano molto chi apre il repo. Una GIF animata è ancora meglio.
 
 ## Struttura del repository
 

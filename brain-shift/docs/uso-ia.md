@@ -28,6 +28,9 @@
 
 **Cosa abbiamo chiesto**: abbiamo chiesto a gemini di aiutarci a mappare l'architettura partendo dai nostri file
 ---
+**Dove**: `test_brain_shift.py` 
+
+**Cosa abbiamo chiesto**: abbiamo chiesto a claude di farci tutti i test
 
 ## Cosa non abbiamo chiesto all'IA
 

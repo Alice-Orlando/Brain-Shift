@@ -1,5 +1,12 @@
 # File: scoring.py
 
+def apply_answer(score: int, is_correct: bool) -> int:
+    """Applica una risposta alla versione base del punteggio."""
+    if is_correct:
+        return score + 10
+    return score
+
+
 def apply_answer_advanced(score, multiplier, meter, is_correct):
     """
     Gestisce lo scoring avanzato:
