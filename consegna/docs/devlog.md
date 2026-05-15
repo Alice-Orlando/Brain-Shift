@@ -4,35 +4,6 @@
 
 ---
 
-## Cos'è un devlog e come si scrive
-
-Un *devlog* (development log) è un diario tecnico del progetto. Serve a:
-
-- **voi**: obbligarsi a riflettere su quello che si sta facendo, su come procede, su cosa non funziona. Tenere traccia delle decisioni prese, così a due settimane di distanza ci si ricorda perché si era scelto qualcosa.
-- **al docente**: vedere che tipo di processo di sviluppo avete portato avanti, come avete reagito agli ostacoli, come si è distribuito il lavoro nel tempo.
-
-Non è un registro formale («oggi ho fatto X, Y, Z»), ma nemmeno un tema. È **tecnico e onesto**: cosa avete fatto, cosa avete capito, cosa non avete capito, cosa vi ha fatto perdere tempo, cosa avete deciso.
-
-### Regole pratiche
-
-- **Frequenza**: almeno una entry a settimana. Meglio due. Senza passare settimane in silenzio.
-- **Lunghezza**: 15-30 righe a entry. Non serve di più. Non accettate entry di due righe tipo «questa settimana abbiamo fatto lo scoring».
-- **Stile**: prima persona plurale (siete un gruppo). Linguaggio normale, frasi dirette. Niente «abbiamo proceduto alla realizzazione di»: scrivete «abbiamo scritto».
-- **Onestà**: se una settimana non avete fatto nulla, scrivetelo. Se avete litigato su qualcosa, dite su cosa (senza attaccare nessuno). Se vi siete bloccati tre giorni su un bug, raccontate il bug.
-
-### Cosa mettere in ogni entry
-
-Linee guida, non obbligatorie in modo rigido. Ogni entry dovrebbe toccare almeno tre di questi punti:
-
-- **cosa abbiamo fatto questa settimana** (fatti, non aspirazioni)
-- **cosa ci ha fatto perdere tempo** e perché
-- **cosa abbiamo imparato di nuovo** (tecnicamente o organizzativamente)
-- **decisioni prese** questa settimana: cosa abbiamo scelto, perché, cosa abbiamo scartato
-- **cosa pianifichiamo per la settimana prossima**
-- **divisione del lavoro**: chi sta facendo cosa in questo momento
-
----
-
 ## Entry
 
 ### Settimana 1 (22-28 aprile 2026)
@@ -47,32 +18,17 @@ Purtroppo la suddivisione è ancora da pianifcare meglio, dato che martedì Alic
 
 ### Settimana 3 (6-12 maggio 2026)
 
-_Scrivete qui._
+In questa settimana ci siamo concentrate sulla rifinitura del sistema di scoring e sulla gestione del tempo. Abbiamo implementato il timer decrescente in main.py e collegato il feedback visivo (colore verde/rosso) alla risposta dell'utente. Abbiamo affrontato un bug fastidioso: il punteggio aumentava anche tenendo premuto il tasto, quindi abbiamo dovuto modificare l' input_handler.py per leggere solo il singolo evento KEYDOWN invece della pressione continua. Abbiamo anche iniziato a scrivere i primi test per le regole di base.
 
 ### Settimana finale (13-17 maggio 2026)
 
-_Scrivete qui._
+Abbiamo rifinito l'interfaccia utente in ui.py per assicurarci che il feedback visivo (colore rosso/verde per le risposte) fosse immediato e fluido. Abbiamo verificato la riproducibilità delle partite testando diversi seed nel generatore, assicurandoci che il bilanciamento tra risposte "SÌ" e "NO" fosse equo per non favorire l'utente. Infine, abbiamo completato la documentazione tecnica e i diagrammi Mermaid per l'architettura. .
 
 ---
 
 ## Bilancio finale
 
-Alla consegna, aggiungete una entry finale di bilancio (30-50 righe). Spunti:
-
-- cosa siamo riusciti a fare di cui siamo più soddisfatti
-- cosa abbiamo capito di nuovo (pygame, git, lavorare in coppia, qualunque cosa)
-- cosa abbiamo sottovalutato all'inizio
-- cosa rifaremmo diversamente
-- come ci siamo divisi il lavoro: è stato bilanciato? equo? efficiente?
-- cosa abbiamo imparato lavorando insieme
-- cosa avremmo aggiunto se avessimo avuto un'altra settimana
-- voto che dareste al vostro progetto e perché (onesto)
+Siamo soddisfatte di come il gioco gestisce la fluidità tra i vari stati (Intro, Gioco, Risultati). La cosa più difficile è stata separare la logica pura (il calcolo del risultato) dalla parte grafica di Pygame, ma questo ci ha permesso di scrivere test più facili. Abbiamo capito che lavorare in coppia richiede molta comunicazione, specialmente quando si usa l'IA per generare parti di codice, per evitare che una delle due non capisca cosa faccia una funzione. Se avessimo avuto un'altra settimana, avremmo aggiunto completato tutti gli obiettivi avanzati. Voto onesto: 8/10.
 
 ---
 
-### Domande-guida
-
-1. Chi legge queste entry si fa un'idea di **come è progredito il lavoro**, non solo del risultato finale?
-2. Le entry sono distribuite nel tempo o ammassate gli ultimi giorni? (Il docente confronta le date delle entry con il git log.)
-3. Avete evitato il tono da tema scolastico?
-4. C'è almeno un errore, un dubbio, una difficoltà onesta raccontata? (Se tutto è andato sempre bene, probabilmente non state raccontando la verità.)

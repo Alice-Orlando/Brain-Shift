@@ -12,64 +12,49 @@ Per ciascun modulo del vostro progetto, una-due righe:
 - `rules.py` — Gestisce la logica di base del gioco: abbiamo separato le regole in funzioni semplici e riutilizzabili (is_even e is_vowel) per controllare numeri e lettere.
 - `scoring.py` — Aumenta o diminuisce il punteggio
 - `generator.py` —  Genera un trial usando un generatore casuale con seed per garantire partite riproducibili; separa la creazione dei dati dalla logica delegando il calcolo della risposta a compute_expected_answer.
-- `states.py` — …
+- `states.py` — Non presente come file separato: abbiamo usato una classe GameState (ereditata da Enum) direttamente dentro main.py per gestire i passaggi tra i vari menu.
 - `ui.py` — Disegna gli assets grafici.
-- `input_handler.py` — …
+- `input_handler.py` — Non presente come file separato: la gestione degli input è integrata nel metodo handle_input della classe Game in main.py, dove traduciamo i tasti K_LEFT e K_RIGHT in risposte False e True.
 
-Se avete aggiunto/rimosso moduli rispetto alla struttura suggerita, spiegate perché.
 
 ## Separazione logica / presentazione
-
 Quali moduli sono "puri" (non importano pygame)? Quali sono legati al rendering? Come comunicano fra loro?
 
 Se avete fatto scelte non ovvie (es. passare lo stato come parametro invece che come variabile globale), spiegate il ragionamento.
 
 ## Macchina a stati
+Il gioco ruota attorno a quattro stati principali gestiti nel ciclo run() di main.py:
 
-Diagramma della macchina a stati (Mermaid va benissimo, è supportato da GitHub):
-
-```mermaid
-stateDiagram-v2
-    [*] --> INTRO
-    INTRO --> PLAYING: premo Start
-    PLAYING --> PAUSED: premo P
-    PAUSED --> PLAYING: premo P
-    PLAYING --> RESULTS: scade il timer
-    RESULTS --> PLAYING: premo R
-    RESULTS --> [*]: premo ESC
-```
-
-Spiegate brevemente ciascuno stato: cosa fa, cosa disegna, quali input ascolta, verso quali stati può transire.
+INTRO: Schermata iniziale. Aspetta la pressione di un tasto per iniziare.
+PLAYING: Il cuore del gioco. Mostra la carta, gestisce il timer decrescente e controlla la logica di risposta.
+PAUSED: Blocca il tempo e l'input di gioco, mostrando un overlay di pausa.
+RESULTS: Mostra il punteggio finale e le statistiche della sessione. Permette di ricominciare (R) o uscire (ESC).
 
 ## Flusso di un trial
+sequenceDiagram
+    participant G as Generator
+    participant M as Main (Game Loop)
+    participant R as Rules
+    participant S as Scoring
 
-Descrivete il ciclo di vita di un singolo trial, dall'istante in cui il generatore lo crea all'istante in cui viene archiviato nelle statistiche. Dove nasce? Come viene valutato? Chi aggiorna lo scoring? Chi attiva il feedback?
+    M->>G: generate_trial()
+    G-->>M: Restituisce oggetto Trial
+    M->>M: Visualizza carta (UI)
+    M->>M: Attesa Input Utente
+    M->>R: compute_expected_answer(trial)
+    R-->>M: Risposta corretta (Bool)
+    M->>S: update_score(is_correct, response_time)
+    S-->>M: Nuovo punteggio e feedback
 
-Un diagramma di sequenza Mermaid aiuta molto qui.
+Il trial nasce in generator.py. In main.py, l'oggetto Trial viene mostrato a video. Quando l'utente preme una freccia, il sistema chiama rules.py per calcolare la risposta corretta "al volo" e confrontarla con l'input. Il risultato viene passato a scoring.py che aggiorna il moltiplicatore e il punteggio totale.
 
 ## Dati principali
+Trial (models.py): Una dataclass che contiene la lettera, il numero e la posizione (TOP/BOTTOM). Calcola automaticamente la risposta attesa nel metodo __post_init__.
 
-Le vostre `dataclass` principali (`Trial`, `ScoringState`, `SessionStats`): cosa contengono, chi le crea, chi le modifica.
+ScoringState (scoring.py): Mantiene lo stato del punteggio, del moltiplicatore e del "meter" (la barra che carica i bonus).
+
+SessionStats (models.py): Registra il numero di risposte corrette, errate e il tempo medio di reazione per la schermata finale.
 
 ## Scoring: come è implementato
+Il fading è gestito tramite la variabile consecutive_correct in ScoringState. In ui.py, la funzione di rendering calcola l'opacità del testo delle istruzioni: finché l'utente non indovina 5 risposte di fila, le istruzioni sono visibili. Superata questa soglia, l'opacità diminuisce linearmente fino a rendere il testo invisibile, forzando il giocatore a memorizzare le regole.
 
-Due righe di riassunto del sistema (meter, moltiplicatore, bonus) e riferimento al file dove sta il codice. Non ripetete la formula della specifica — spiegate come l'avete tradotta in codice voi.
-
-## Generatore: bilanciamento e seed
-
-- Come evitate streak lunghe?
-- Come bilanciate YES/NO?
-- Come funziona il seed? Come lo testate?
-
-## Fading istruzioni
-
-Come è implementato tecnicamente? Dove vive la variabile «quante risposte corrette finora»? Chi la aggiorna? Come si trasforma in opacità?
-
----
-
-### Domande-guida
-
-1. Se un compagno apre il progetto per la prima volta, capisce dove cercare cosa?
-2. Avete spiegato **perché** le vostre scelte, o solo **cosa** avete fatto?
-3. I diagrammi Mermaid si aprono correttamente su GitHub? (Verificate nel browser.)
-4. Qualcuno che legge solo questa pagina riesce a farsi un'idea corretta dell'architettura?

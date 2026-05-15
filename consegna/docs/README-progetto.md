@@ -27,15 +27,16 @@ python main.py
 
 Specificate:
 
-- versione Python richiesta 3.14
+- versione Python richiesta 3.13
 - versione pygame richiesta 2.6.1
 
 ## Controlli
 
 - ← freccia sinistra: NO
 - → freccia destra: SI
-- r tasto r: per ricominciare il gioco
-- … (eventuale mouse, pausa, ecc.)
+- tastp R: per ricominciare il gioco
+- tasto P: Mette il gioco in PAUSA.
+- tasto ESC: Esce dal gioco.
 
 ## Screenshot
 
@@ -54,7 +55,7 @@ brain_shift/
 ├── rules.py          ← logica regole
 ├── scoring.py        ← sistema scoring
 ├── ui.py             ← interfaccia utente (pygame)
-├── REDAME.md         ← documentazione principale
+├── README.md         ← documentazione principale
 ├── requirements.text ← dipendenze Python
 ├── test/             ← cartella dei test
 │   ├── conftest.py   ← configurazione pytest
@@ -76,11 +77,3 @@ pytest tests/
 
 ---
 
-### Domande-guida per questa pagina
-
-Non vanno lasciate nel file finale, servono solo a voi per capire cosa scrivere.
-
-1. Se un vostro compagno di un'altra classe apre questo repo, capisce in 30 secondi cosa fa il gioco?
-2. Le istruzioni di setup sono abbastanza specifiche da funzionare sul suo computer?
-3. C'è almeno uno screenshot o una GIF?
-4. Tutti i link ad altre pagine di `docs/` sono validi?
