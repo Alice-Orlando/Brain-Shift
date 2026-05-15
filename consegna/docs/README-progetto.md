@@ -56,7 +56,7 @@ brain_shift/
 ├── scoring.py        ← sistema scoring
 ├── ui.py             ← interfaccia utente (pygame)
 ├── README.md         ← documentazione principale
-├── requirements.text ← dipendenze Python
+├── requirements.txt  ← dipendenze Python
 ├── test/             ← cartella dei test
 │   ├── conftest.py   ← configurazione pytest
 │   ├── README.md     ← documentazione test
